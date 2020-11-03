@@ -83,7 +83,11 @@ from wger.core.forms import (
     UserPersonalInformationForm,
     UserPreferencesForm
 )
-from wger.core.models import Language
+from wger.core.models import (
+    Language,
+    UserProfile  # VPATEL
+)
+
 from wger.gym.models import (
     AdminUserNote,
     Contract,
@@ -301,7 +305,6 @@ def preferences(request):
 
     # Process the preferences form
     if request.method == 'POST':
-
         form = UserPreferencesForm(data=request.POST, instance=request.user.userprofile)
         form.user = request.user
 
@@ -309,6 +312,8 @@ def preferences(request):
         if form.is_valid():
             form.save()
             redirect = True
+        else:
+            pass
     else:
         data = {'first_name': request.user.first_name,
                 'last_name': request.user.last_name,
@@ -334,6 +339,14 @@ def preferences(request):
     else:
         return render(request, 'user/preferences.html', template_data)
 
+@login_required
+def profile(request):
+    template_data = {}
+    reqUserID = request.user.id
+    userProfile = get_object_or_404(UserProfile, pk=reqUserID)
+    template_data['userProfile'] = userProfile
+
+    return render(request, 'user/profile.html', template_data)
 
 class UserDeactivateView(LoginRequiredMixin,
                          WgerMultiplePermissionRequiredMixin,

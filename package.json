@@ -16,7 +16,6 @@
   },
   "homepage": "https://github.com/wger-project/wger",
   "dependencies": {
-    "yarn": "^1.22.5",
     "Sortable": "RubaXa/Sortable#1.10.2",
     "bootstrap": "twbs/bootstrap#4.x",
     "components-font-awesome": "components/font-awesome#5.14.0",
@@ -25,8 +24,10 @@
     "devbridge-autocomplete": "^1.4.11",
     "jquery": "^3.5.0",
     "metrics-graphics": "mozilla/metrics-graphics#2.15.x",
+    "sass": "^1.26.10",
     "shariff": "^3.2.1",
-    "tinymce": "^5.4.2"
+    "tinymce": "^5.4.2",
+    "yarn": "^1.22.5"
   },
   "engines": {
     "yarn": ">= 1.0.0"

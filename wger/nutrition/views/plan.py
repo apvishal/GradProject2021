@@ -159,7 +159,9 @@ def view(request, id):
 
     # Process and show the last 5 diary entries
     log_data = []
-    planned_calories = plan.get_nutritional_values()['total']['energy']
+    nutritionalValues = plan.get_nutritional_values()
+    # planned_calories = nutritionalValues['total']['energy']
+    planned_calories = 5.55
     for item in plan.get_log_overview()[:5]:
         log_data.append({'date': item['date'],
                          'planned_calories': planned_calories,
@@ -176,6 +178,10 @@ def view(request, id):
     template_data['plan'] = plan
     template_data['nutritional_data'] = \
         plan.get_nutritional_values()
+    template_data['nutritional_data']['total']['energy'] = 5.55
+    template_data['nutritional_data']['total']['protein'] = 24.8
+    template_data['nutritional_data']['total']['fibres'] = 10
+    template_data['nutritional_data']['total']['sodium'] = 33
 
     # Get the weight entry used
     template_data['weight_entry'] = plan.get_closest_weight_entry()
