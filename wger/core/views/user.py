@@ -61,6 +61,7 @@ from django.views.generic import (
     RedirectView,
     UpdateView
 )
+from django.http import HttpResponse
 
 # Third Party
 from crispy_forms.helper import FormHelper
@@ -310,14 +311,15 @@ def preferences(request):
 
         # Save the data if it validates
         if form.is_valid():
-            form.save()
+            form.save() # saves user data if form is valid
             redirect = True
         else:
-            pass
+            print("Invalid form; errors: " + form.errors.as_json())
     else:
         data = {'first_name': request.user.first_name,
                 'last_name': request.user.last_name,
-                'email': request.user.email}
+                'email': request.user.email
+                }
 
         form = UserPreferencesForm(initial=data, instance=request.user.userprofile)
 
