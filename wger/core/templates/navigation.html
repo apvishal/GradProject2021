@@ -183,6 +183,9 @@
                                 <li>
                                     <a class="dropdown-item" href="{% url 'core:user:preferences' %}">{% trans "My preferences" %}</a>
                                 </li>
+                                <li>
+                                    <a class="dropdown-item" href="{% url 'core:user:profile' %}">{% trans "My Profile" %}</a>
+                                </li>
                                 {% if not trainer_identity %}
                                 <li class="dropdown-divider"></li>
                                 <li>
