@@ -127,6 +127,11 @@ class UserProfile(models.Model):
     The user
     """
 
+    age = models.PositiveIntegerField(_("age"), null=True)
+    """
+    The user's Age
+    """
+
     gym = models.ForeignKey(Gym,
                             editable=False,
                             null=True,
