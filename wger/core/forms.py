@@ -35,7 +35,9 @@ from django.utils.translation import ugettext as _
 from captcha.fields import ReCaptchaField
 from crispy_forms.bootstrap import (
     Accordion,
-    AccordionGroup
+    AccordionGroup,
+    Tab,
+    TabHolder
 )
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import (
@@ -78,6 +80,9 @@ class UserPreferencesForm(forms.ModelForm):
     email = EmailField(label=_("Email"),
                        help_text=_("Used for password resets and, optionally, email reminders."),
                        required=False)
+    age = forms.CharField(label=_('Some Age'),
+                          required=False)
+
 
     class Meta:
         model = UserProfile
@@ -105,6 +110,7 @@ class UserPreferencesForm(forms.ModelForm):
                                'email',
                                Row(Column('first_name', css_class='form-group col-6 mb-0'),
                                    Column('last_name', css_class='form-group col-6 mb-0'),
+                                   Column('age', css_class='form-group col-6 mb-0'),
                                    css_class='form-row'),
                                ),
                 AccordionGroup(_("Workout reminders"),
@@ -128,6 +134,59 @@ class UserPreferencesForm(forms.ModelForm):
             ),
             ButtonHolder(Submit('submit', _("Save"), css_class='btn-success btn-block'))
         )
+
+
+class UserProfileForm(forms.ModelForm):
+    first_name = forms.CharField(label=_('First name'),
+                                 required=False)
+    last_name = forms.CharField(label=_('Last name'),
+                                required=False)
+    email = EmailField(label=_("Email"),
+                       required=False)
+    age = forms.CharField(label=_('Some Age'),
+                          required=False)
+
+
+    class Meta:
+        model = UserProfile
+        fields = ('show_comments',
+                  'show_english_ingredients',
+                  'workout_reminder_active',
+                  'workout_reminder',
+                  'workout_duration',
+                  'notification_language',
+                  'weight_unit',
+                  'timer_active',
+                  'timer_pause',
+                  'ro_access',
+                  'num_days_weight_reminder',
+                  'birthdate'
+                  )
+
+    def __init__(self, *args, **kwargs):
+        super(UserProfileForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_class = 'wger-form'
+        self.helper.layout = Layout(
+            # Accordion(
+            #     AccordionGroup(_("Personal data"),
+            #                    'email',
+            #                    Row(Column('first_name', css_class='form-group col-6 mb-0'),
+            #                        Column('last_name', css_class='form-group col-6 mb-0'),
+            #                        Column('age', css_class='form-group col-6 mb-0'),
+            #                        css_class='form-row'),
+            #                    )
+            # )
+            TabHolder(
+                Tab('Personal Information',
+                    Row(Column('first_name', css_class='form-group col-6 mb-0'),
+                                              Column('last_name', css_class='form-group col-6 mb-0'),
+                                              Column('age', css_class='form-group col-6 mb-0'),
+                                              css_class='form-row'),
+                    ),
+                Tab('Goals')
+                )
+            )
 
 
 class UserEmailForm(forms.ModelForm):
