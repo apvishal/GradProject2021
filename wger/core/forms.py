@@ -99,7 +99,8 @@ class UserPreferencesForm(forms.ModelForm):
                   'timer_pause',
                   'ro_access',
                   'num_days_weight_reminder',
-                  'birthdate'
+                  'birthdate',
+                  'profilePicture'
                   )
 
     def __init__(self, *args, **kwargs):
@@ -122,7 +123,8 @@ class UserPreferencesForm(forms.ModelForm):
                                ),
                 AccordionGroup("{} ({})".format(_("Gym mode"), _("mobile version only")),
                                "timer_active",
-                               "timer_pause"
+                               "timer_pause",
+
                                ),
                 AccordionGroup(_("Other settings"),
                                "ro_access",
@@ -132,6 +134,7 @@ class UserPreferencesForm(forms.ModelForm):
                                "show_english_ingredients",
                                "num_days_weight_reminder",
                                "birthdate",
+                               "profilePicture"
                                )
             ),
             ButtonHolder(Submit('submit', _("Save"), css_class='btn-success btn-block'))

@@ -127,6 +127,12 @@ class UserProfile(models.Model):
     The user
     """
 
+    profilePicture = models.ImageField(upload_to='images/', default="mamba.jpeg")
+
+    """
+    The Users's profile image
+    """
+
     age = models.PositiveIntegerField(_("age"), null=True)
     """
     The user's Age
