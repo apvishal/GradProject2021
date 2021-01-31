@@ -1,9 +1,53 @@
 {% extends "base.html" %}
 {% load i18n static wger_extras crispy_forms_tags %}
 
-{% block title %} {{user.first_name}}'s Profile {% endblock %}
+{% block title %} {{user.first_name}} Profile {% endblock %}
+
+{% block header %}
+{% endblock %}
 
 
 {% block content %}
-    {% crispy form %}
+    <div class="container">
+        <h1>{{user.first_name}}</h1>
+        <div class="row">
+            {% crispy form form.imageDiv %}
+            {% crispy form form.nameDiv %}
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block sidebar %}
+{% endblock %}
+
+
+
+{#         #}
+{# Options #}
+{#         #}
+{% block options %}
+<div class="btn-group">
+    <div class="btn-group" role="group">
+        <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <span class="{% fa_class 'cog' %}"></span>
+            {% trans "Options" %}
+        </button>
+        <div class="dropdown-menu">
+            <a href="{% url 'core:user:change-password' %}" class="dropdown-item">
+                <span class="{% fa_class 'key' %}"></span>
+                {% trans "Change password" %}
+            </a>
+            <a href="{% url 'core:user:api-key' %}" class="dropdown-item">
+                <span class="{% fa_class 'globe' %}"></span>
+                {% trans "API key" %}
+            </a>
+            <div role="separator" class="dropdown-divider"></div>
+            <a href="{% url 'core:user:delete' %}" class="wger-modal-dialog dropdown-item">
+                <span class="{% fa_class 'trash' %}"></span>
+                {% trans "Delete account" %}
+            </a>
+        </div>
+    </div>
+</div>
 {% endblock %}

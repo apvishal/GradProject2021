@@ -45,7 +45,9 @@ from crispy_forms.layout import (
     Column,
     Layout,
     Row,
-    Submit
+    Submit,
+    Div,
+    Field
 )
 
 # wger
@@ -146,7 +148,6 @@ class UserProfileForm(forms.ModelForm):
     age = forms.CharField(label=_('Some Age'),
                           required=False)
 
-
     class Meta:
         model = UserProfile
         fields = ('show_comments',
@@ -165,28 +166,51 @@ class UserProfileForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(UserProfileForm, self).__init__(*args, **kwargs)
-        self.helper = FormHelper()
-        self.helper.form_class = 'wger-form'
-        self.helper.layout = Layout(
+        self.imageDiv = FormHelper()
+        self.imageDiv.form_tag = False
+        # self.helper.form_class = 'wger-form'
+        self.imageDiv.layout = Layout(
+            Div(Field('email'), css_class="col-sm-3")
+        )
+
+        self.nameDiv = FormHelper()
+        self.nameDiv.form_tag = False
+        # self.helper.form_class = 'wger-form'
+        self.nameDiv.layout = Layout(
+            Div(Field('first_name'), css_class="col-sm-3 offset-sm-5")
+        )
+
+
             # Accordion(
             #     AccordionGroup(_("Personal data"),
-            #                    'email',
             #                    Row(Column('first_name', css_class='form-group col-6 mb-0'),
             #                        Column('last_name', css_class='form-group col-6 mb-0'),
             #                        Column('age', css_class='form-group col-6 mb-0'),
             #                        css_class='form-row'),
+            #                    ),
+            #     AccordionGroup(_("Test"),
+            #                    Column('email', css_class='form-group col-6 mb-0')
             #                    )
             # )
+        self.anotherHelper = FormHelper()
+        self.anotherHelper.form_tag = False
+        self.anotherHelper.layout = Layout(
             TabHolder(
-                Tab('Personal Information',
-                    Row(Column('first_name', css_class='form-group col-6 mb-0'),
-                                              Column('last_name', css_class='form-group col-6 mb-0'),
-                                              Column('age', css_class='form-group col-6 mb-0'),
-                                              css_class='form-row'),
-                    ),
-                Tab('Goals')
-                )
+            Tab('Personal Information',
+                Row(Column('first_name', css_class='form-group col-6 mb-0'),
+                                          Column('last_name', css_class='form-group col-6 mb-0'),
+                                          Column('age', css_class='form-group col-6 mb-0'),
+                                          css_class='form-row'),
+                ),
+            Tab('Goals')
             )
+        )
+        # self.anotherHelper = FormHelper()
+        # # self.anotherHelper.form_class = 'wger-form'
+        # self.anotherHelper.form_tag = False
+        # self.anotherHelper.layout = Layout(
+        #     Div('email', css_class="float-container")
+        # )
 
 
 class UserEmailForm(forms.ModelForm):
