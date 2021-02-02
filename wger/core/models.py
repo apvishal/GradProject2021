@@ -138,6 +138,11 @@ class UserProfile(models.Model):
     The user's Age
     """
 
+    goal = models.CharField(_("goal"), default="", max_length=20)
+    """
+    The user's goal
+    """
+
     gym = models.ForeignKey(Gym,
                             editable=False,
                             null=True,
