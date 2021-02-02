@@ -82,8 +82,10 @@ from wger.core.forms import (
     RegistrationFormNoCaptcha,
     UserLoginForm,
     UserPersonalInformationForm,
-    UserPreferencesForm
+    UserPreferencesForm,
+    UserProfileForm
 )
+
 from wger.core.models import (
     Language,
     UserProfile  # VPATEL
@@ -345,8 +347,15 @@ def preferences(request):
 def profile(request):
     template_data = {}
     reqUserID = request.user.id
-    userProfile = get_object_or_404(UserProfile, pk=reqUserID)
-    template_data['userProfile'] = userProfile
+    userProfile = get_object_or_404(UserProfile, pk=reqUserID) # abstract user
+    data = {
+        'first_name': request.user.first_name,
+        'last_name': request.user.last_name,
+        'age': userProfile.age
+    }
+    form = UserProfileForm(initial=data, instance=request.user.userprofile)
+    template_data['form'] = form
+    template_data['user'] = userProfile.user
 
     return render(request, 'user/profile.html', template_data)
 
