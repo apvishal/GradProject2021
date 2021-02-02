@@ -84,7 +84,7 @@ from wger.core.forms import (
     UserPersonalInformationForm,
     UserPreferencesForm,
     UserProfileForm
-)
+    )
 
 from wger.core.models import (
     Language,
@@ -306,9 +306,9 @@ def preferences(request):
     template_data.update(csrf(request))
     redirect = False
 
-    # Process the preferences form
+    # Process the preferences form; include the image upload (request.FILES)
     if request.method == 'POST':
-        form = UserPreferencesForm(data=request.POST, instance=request.user.userprofile)
+        form = UserPreferencesForm(request.POST, request.FILES, instance=request.user.userprofile)
         form.user = request.user
 
         # Save the data if it validates
