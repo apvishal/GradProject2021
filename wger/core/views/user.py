@@ -306,10 +306,9 @@ def preferences(request):
     template_data.update(csrf(request))
     redirect = False
 
-    # Process the preferences form
+    # Process the preferences form; add request.FILES to allow uploading of image
     if request.method == 'POST':
-        form = UserPreferencesForm(data=request.POST, instance=request.user.userprofile)
-        form = UserPreferencesForm(data=request.POST, instance=request.FILES)
+        form = UserPreferencesForm(request.POST, request.FILES,  instance=request.user.userprofile)
         form.user = request.user
 
         # Save the data if it validates
@@ -352,6 +351,12 @@ def profile(request):
     data = {
         'full_name': request.user.first_name + " " + request.user.last_name,
         'user_name': userProfile.user.username,
+        'user_email': request.user.email,
+        'age': str(userProfile.age),
+        'gender': userProfile.gender,
+        'weight': str(userProfile.weight),
+        'height': str(userProfile.height),
+        # 'city': userProfile.address['city'] + ',
         'picture': "{0}/{1}".format(settings.MEDIA_URL, userProfile.profilePicture)
     }
 
