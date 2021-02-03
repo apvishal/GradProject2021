@@ -368,7 +368,7 @@ def profile(request):
         'gender': userProfile.gender,
         'weight': str(userProfile.weight),
         'height': str(userProfile.height),
-        # 'city': userProfile.address['city'] + ',
+        'location': userProfile.gym.city + ", " + userProfile.gym.state,
         'picture': "{0}/{1}".format(settings.MEDIA_URL, userProfile.profilePicture)
     }
 

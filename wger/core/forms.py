@@ -173,7 +173,7 @@ class UserProfileForm(forms.ModelForm):
         # create all lines of text for the html...
         self.full_name = "<p><strong>Full Name:</strong>&emsp;&ensp;" + self.data['full_name'] + "</p>"
         self.age = "<p><strong>Age:</strong>&emsp;&ensp;" + self.data['age'] + "</p>"
-        self.city = "<p><strong>City:</strong>&emsp;&ensp;" + "TBD" + "</p>"
+        self.city = "<p><strong>Gym Location:</strong>&emsp;&ensp;" + self.data['location'] + "</p>"
         self.gender = "<p><strong>Gender:</strong>&emsp;&ensp;" + ("Male" if self.data['gender'] else "Female") + "</p>"
         self.weight = "<p><strong>Weight:</strong>&emsp;&ensp;" + self.data['weight'] + "</p>"
         self.height = "<p><strong>Height:</strong>&emsp;&ensp;" + self.data['height'] + "</p>"
