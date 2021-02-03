@@ -82,6 +82,12 @@ class Gym(m.Model):
                        null=True)
     """City"""
 
+    state = m.CharField(_(u'State'),
+                       max_length=30,
+                       blank=True,
+                       null=True)
+    """State"""
+
     street = m.CharField(_(u'Street'),
                          max_length=30,
                          blank=True,
