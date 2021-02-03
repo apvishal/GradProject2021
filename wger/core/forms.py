@@ -47,7 +47,8 @@ from crispy_forms.layout import (
     Row,
     Submit,
     Div,
-    Field
+    Field,
+    HTML
 )
 
 # wger
@@ -144,33 +145,13 @@ class UserPreferencesForm(forms.ModelForm):
 
 
 class UserProfileForm(forms.ModelForm):
-    first_name = forms.CharField(label=_('First name'),
-                                 required=False)
-    last_name = forms.CharField(label=_('Last name'),
-                                required=False)
-    email = EmailField(label=_("Email"),
-                       required=False)
-    age = forms.CharField(label=_('Some Age'),
-                          required=False)
-
     class Meta:
         model = UserProfile
-        fields = ('show_comments',
-                  'show_english_ingredients',
-                  'workout_reminder_active',
-                  'workout_reminder',
-                  'workout_duration',
-                  'notification_language',
-                  'weight_unit',
-                  'timer_active',
-                  'timer_pause',
-                  'ro_access',
-                  'num_days_weight_reminder',
-                  'birthdate'
-                  )
+        fields = ()
 
     def __init__(self, *args, **kwargs):
         super(UserProfileForm, self).__init__(*args, **kwargs)
+        self.data = kwargs['initial']
         # self.imageDiv = FormHelper()
         # self.imageDiv.form_tag = False
         # self.helper.form_class = 'wger-form'
@@ -185,16 +166,32 @@ class UserProfileForm(forms.ModelForm):
         #     Div(Field('first_name'), css_class="col-sm-3 offset-sm-5")
         # )
 
+        # create all lines of text for the html...
+        self.full_name = "<p><strong>Full Name:</strong>&emsp;&ensp;" + self.data['full_name'] + "</p>"
+        self.age = "<p><strong>Age:</strong>&emsp;&ensp;" + self.data['age'] + "</p>"
+        self.city = "<p><strong>City:</strong>&emsp;&ensp;" + "TBD" + "</p>"
+        self.gender = "<p><strong>Gender:</strong>&emsp;&ensp;" + ("Male" if self.data['gender'] else "Female") + "</p>"
+        self.weight = "<p><strong>Weight:</strong>&emsp;&ensp;" + self.data['weight'] + "</p>"
+        self.height = "<p><strong>Height:</strong>&emsp;&ensp;" + self.data['height'] + "</p>"
+
         self.anotherHelper = FormHelper()
         self.anotherHelper.form_tag = False
         self.anotherHelper.layout = Layout(
             TabHolder(
             Tab('Personal Information',
-                Row(Column('first_name', css_class='form-group col-6 mb-0'),
-                                          Column('last_name', css_class='form-group col-6 mb-0'),
-                                          Column('age', css_class='form-group col-6 mb-0'),
-                                          css_class='form-row'),
+                Row(
+                    Column(HTML(self.full_name), css_class='form-group col-6 mb-0'),
+                    Column(HTML(self.gender), css_class='form-group col-6 mb-0')
                 ),
+                Row(
+                    Column(HTML(self.city), css_class='form-group col-6 mb-0'),
+                    Column(HTML(self.weight), css_class='form-group col-6 mb-0')
+                ),
+                Row(
+                    Column(HTML(self.age), css_class='form-group col-6 mb-0'),
+                    Column(HTML(self.height), css_class='form-group col-6 mb-0')
+                ),
+            ),
             Tab('Goals')
             )
         )
