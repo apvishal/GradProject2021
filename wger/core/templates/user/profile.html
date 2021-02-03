@@ -6,21 +6,24 @@
 {% block header %}
 {% endblock %}
 
-
 {% block content %}
     <div class="container">
-        <div class="column">
-            <div class="col-sm-3">
-                <img src="{{ data.picture }}" class="rounded-circle">
+        <div class="row">
+            <div class="col-sm-6" align="center">
+                <img src="{{ data.picture }}" style="width: 300px; height: 300px" class="rounded-circle">
+                <h4>{{data.full_name}}</h4>
             </div>
-            <h4>{{data.full_name}}</h4>
-        </div>
-        <div class="offset-sm-8">
-            <p><strong>Username :</strong> {{ data.user_name }}</p>
-            <p><strong>Username :</strong> {{ data.user_name }}</p>
-
+            <div class="col-sm-6 align-self-center" align="center">
+                <p><strong>Username :</strong> {{ data.user_name }}</p>
+                <p><strong>Email :</strong> {{ data.user_email }}</p>
+            </div>
         </div>
     </div>
+
+<div style="padding-top:50px;">
+    {% crispy form form.anotherHelper %}
+</div>
+
 
 {% endblock %}
 
