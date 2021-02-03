@@ -84,7 +84,7 @@ from wger.core.forms import (
     UserPersonalInformationForm,
     UserPreferencesForm,
     UserProfileForm
-    )
+)
 
 from wger.core.models import (
     Language,
@@ -306,9 +306,10 @@ def preferences(request):
     template_data.update(csrf(request))
     redirect = False
 
-    # Process the preferences form; include the image upload (request.FILES)
+    # Process the preferences form
     if request.method == 'POST':
-        form = UserPreferencesForm(request.POST, request.FILES, instance=request.user.userprofile)
+        form = UserPreferencesForm(data=request.POST, instance=request.user.userprofile)
+        form = UserPreferencesForm(data=request.POST, instance=request.FILES)
         form.user = request.user
 
         # Save the data if it validates
@@ -349,13 +350,15 @@ def profile(request):
     reqUserID = request.user.id
     userProfile = get_object_or_404(UserProfile, pk=reqUserID) # abstract user
     data = {
-        'first_name': request.user.first_name,
-        'last_name': request.user.last_name,
-        'age': userProfile.age
+        'full_name': request.user.first_name + " " + request.user.last_name,
+        'user_name': userProfile.user.username,
+        'picture': "{0}/{1}".format(settings.MEDIA_URL, userProfile.profilePicture)
     }
+
     form = UserProfileForm(initial=data, instance=request.user.userprofile)
     template_data['form'] = form
-    template_data['user'] = userProfile.user
+    template_data['user'] = userProfile.user.first_name
+    template_data['data'] = data
 
     return render(request, 'user/profile.html', template_data)
 

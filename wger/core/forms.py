@@ -100,7 +100,8 @@ class UserPreferencesForm(forms.ModelForm):
                   'ro_access',
                   'num_days_weight_reminder',
                   'birthdate',
-                  'profilePicture'
+                  'profilePicture',
+                  'goal'
                   )
 
     def __init__(self, *args, **kwargs):
@@ -134,7 +135,8 @@ class UserPreferencesForm(forms.ModelForm):
                                "show_english_ingredients",
                                "num_days_weight_reminder",
                                "birthdate",
-                               "profilePicture"
+                               "profilePicture",
+                               "goal"
                                )
             ),
             ButtonHolder(Submit('submit', _("Save"), css_class='btn-success btn-block'))
@@ -169,32 +171,20 @@ class UserProfileForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(UserProfileForm, self).__init__(*args, **kwargs)
-        self.imageDiv = FormHelper()
-        self.imageDiv.form_tag = False
+        # self.imageDiv = FormHelper()
+        # self.imageDiv.form_tag = False
         # self.helper.form_class = 'wger-form'
-        self.imageDiv.layout = Layout(
-            Div(Field('email'), css_class="col-sm-3")
-        )
+        # self.imageDiv.layout = Layout(
+        #     Div(, css_class="col-sm-3")
+        # )
 
-        self.nameDiv = FormHelper()
-        self.nameDiv.form_tag = False
-        # self.helper.form_class = 'wger-form'
-        self.nameDiv.layout = Layout(
-            Div(Field('first_name'), css_class="col-sm-3 offset-sm-5")
-        )
+        # self.nameDiv = FormHelper()
+        # self.nameDiv.form_tag = False
+        # # self.helper.form_class = 'wger-form'
+        # self.nameDiv.layout = Layout(
+        #     Div(Field('first_name'), css_class="col-sm-3 offset-sm-5")
+        # )
 
-
-            # Accordion(
-            #     AccordionGroup(_("Personal data"),
-            #                    Row(Column('first_name', css_class='form-group col-6 mb-0'),
-            #                        Column('last_name', css_class='form-group col-6 mb-0'),
-            #                        Column('age', css_class='form-group col-6 mb-0'),
-            #                        css_class='form-row'),
-            #                    ),
-            #     AccordionGroup(_("Test"),
-            #                    Column('email', css_class='form-group col-6 mb-0')
-            #                    )
-            # )
         self.anotherHelper = FormHelper()
         self.anotherHelper.form_tag = False
         self.anotherHelper.layout = Layout(
