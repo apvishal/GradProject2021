@@ -83,7 +83,8 @@ from wger.core.forms import (
     UserLoginForm,
     UserPersonalInformationForm,
     UserPreferencesForm,
-    UserProfileForm
+    UserProfileForm,
+    GymForm
 )
 
 from wger.core.models import (
@@ -318,12 +319,14 @@ def preferences(request):
         else:
             print("Invalid form; errors: " + form.errors.as_json())
     else:
-        data = {'first_name': request.user.first_name,
+        template_data = {'first_name': request.user.first_name,
                 'last_name': request.user.last_name,
-                'email': request.user.email
+                'email': request.user.email,
+                'city': request.user.userprofile.gym.city,
+                'state': request.user.userprofile.gym.state
                 }
 
-        form = UserPreferencesForm(initial=data, instance=request.user.userprofile)
+        form = UserPreferencesForm(initial=template_data, instance=request.user.userprofile)
 
     # Process the email form
     if request.method == 'POST':
@@ -331,6 +334,15 @@ def preferences(request):
 
         if email_form.is_valid() and redirect:
             email_form.save()
+            redirect = True
+        else:
+            redirect = False
+
+    # Process the Gym form
+    if request.method == 'POST':
+        gym_form = GymForm(data=request.POST, instance=request.user.userprofile.gym)
+        if gym_form.is_valid() and redirect:
+            gym_form.save()
             redirect = True
         else:
             redirect = False

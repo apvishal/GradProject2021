@@ -53,6 +53,7 @@ from crispy_forms.layout import (
 
 # wger
 from wger.core.models import UserProfile
+from wger.gym.models import Gym
 
 
 class UserLoginForm(AuthenticationForm):
@@ -83,9 +84,8 @@ class UserPreferencesForm(forms.ModelForm):
     email = EmailField(label=_("Email"),
                        help_text=_("Used for password resets and, optionally, email reminders."),
                        required=False)
-    age = forms.CharField(label=_('Some Age'),
-                          required=False)
-
+    city = forms.CharField(label=_('Gym City'), required=False)
+    state = forms.CharField(label=_('Gym State'), required=False)
 
     class Meta:
         model = UserProfile
@@ -102,7 +102,8 @@ class UserPreferencesForm(forms.ModelForm):
                   'num_days_weight_reminder',
                   'birthdate',
                   'profilePicture',
-                  'goal'
+                  'goal',
+                  'age'
                   )
 
     def __init__(self, *args, **kwargs):
@@ -115,8 +116,9 @@ class UserPreferencesForm(forms.ModelForm):
                                'email',
                                Row(Column('first_name', css_class='form-group col-6 mb-0'),
                                    Column('last_name', css_class='form-group col-6 mb-0'),
-                                   Column('age', css_class='form-group col-6 mb-0'),
-                                   css_class='form-row'),
+                                   css_class='form-row'
+                                    ),
+                                'age'
                                ),
                 AccordionGroup(_("Workout reminders"),
                                'workout_reminder_active',
@@ -130,6 +132,8 @@ class UserPreferencesForm(forms.ModelForm):
                                ),
                 AccordionGroup(_("Other settings"),
                                "ro_access",
+                               "city",
+                               "state",
                                "notification_language",
                                "weight_unit",
                                "show_comments",
@@ -245,6 +249,16 @@ class UserPersonalInformationForm(UserEmailForm):
         model = User
         fields = ('first_name', 'last_name', 'email')
 
+
+class GymForm(forms.ModelForm):
+    city = forms.CharField(label=_('Gym City'),
+                                 required=False)
+    state = forms.CharField(label=_('Gym State'),
+                                required=False)
+
+    class Meta:
+        model = Gym
+        fields = { 'city', 'state' }
 
 class PasswordConfirmationForm(Form):
     """
