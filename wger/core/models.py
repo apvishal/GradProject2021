@@ -104,13 +104,15 @@ class UserProfile(models.Model):
         (GENDER_FEMALE, _('Female')),
     )
 
-    GOAL_LOSE_WEIGHT = 'LW'
-    GOAL_BODYBUILDING = 'BB'
-    GOALS_CROSSFIT = 'CF'
+    GOAL_LOSE_WEIGHT = '0'
+    GOAL_GAIN_WEIGHT = '1'
+    GOALS_ACTIVE= '2',
+    GOALS_LEARN = '3'
     GOALS = [
         (GOAL_LOSE_WEIGHT, _('Lose Weight')),
-        (GOAL_BODYBUILDING, _('Bodybuilding')),
-        (GOALS_CROSSFIT, _('Cross Fit'))
+        (GOAL_GAIN_WEIGHT, _('Gain Weight')),
+        (GOALS_ACTIVE, _('Get Active')),
+        (GOALS_LEARN, _('Get Active')),
     ]
 
     INTENSITY_LOW = '1'
