@@ -296,7 +296,7 @@ by the US Department of Agriculture. It is extremely complete, with around
                               default=ACTIVITY_CARDIO,
                               blank=False,
                               null=True)
-    """Goal"""
+    """Fitness Activity"""
 
     sleep_hours = IntegerField(verbose_name=_('Hours of sleep'),
                                help_text=_('The average hours of sleep per day'),
