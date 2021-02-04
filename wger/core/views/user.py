@@ -371,7 +371,8 @@ def profile(request):
         'height': str(userProfile.height),
         'location': userProfile.gym.city + ", " + userProfile.gym.state,
         'picture': "{0}/{1}".format(settings.MEDIA_URL, userProfile.profilePicture),
-        'goal': str(userProfile.GOALS[int(userProfile.goal)][1])
+        'goal': str(userProfile.GOALS[int(userProfile.goal)][1]),
+        'activity': str(userProfile.FITNESS_ACTIVITIES[int(userProfile.fitness_activity)][1]),
     }
 
     form = UserProfileForm(initial=data, instance=request.user.userprofile)

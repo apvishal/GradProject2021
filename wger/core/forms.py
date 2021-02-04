@@ -188,6 +188,7 @@ class UserProfileForm(forms.ModelForm):
         self.weight = "<p><strong>Weight:</strong>&emsp;&ensp;" + self.data['weight'] + " lbs</p>"
         self.height = "<p><strong>Height:</strong>&emsp;&ensp;" + self.data['height'] + " cm</p>"
         self.goal = "<p><strong>Primary Goal:</strong>&emsp;&ensp;" + self.data['goal'] + "</p>"
+        self.activity = "<p><strong>Fitness Activity:</strong>&emsp;&ensp;" + self.data['activity'] + "</p>"
 
         self.anotherHelper = FormHelper()
         self.anotherHelper.form_tag = False
@@ -211,6 +212,9 @@ class UserProfileForm(forms.ModelForm):
                     Row(
                         Column(HTML(self.goal), css_class='form-group col-6 mb-0'),
                         Column(HTML(self.gender), css_class='form-group col-6 mb-0')
+                    ),
+                    Row(
+                        Column(HTML(self.activity), css_class='form-group col-6 mb-0')
                     )
                 )
             )
