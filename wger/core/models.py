@@ -104,9 +104,9 @@ class UserProfile(models.Model):
         (GENDER_FEMALE, _('Female')),
     )
 
-    GOAL_LOSE_WEIGHT = '0',
-    GOAL_GAIN_WEIGHT = '1',
-    GOALS_ACTIVE = '2',
+    GOAL_LOSE_WEIGHT = '0'
+    GOAL_GAIN_WEIGHT = '1'
+    GOALS_ACTIVE = '2'
     GOALS_LEARN = '3'
 
     GOALS = [
@@ -116,10 +116,10 @@ class UserProfile(models.Model):
         (GOALS_LEARN, _('Start Learning')),
     ]
 
-    ACTIVITY_CROSSFIT = '0',
-    ACTIVITY_BODYBUILDING = '1',
-    ACTIVITY_CARDIO= '2',
-    ACTIVITY_POWERLIFT = '3',
+    ACTIVITY_CROSSFIT = '0'
+    ACTIVITY_BODYBUILDING = '1'
+    ACTIVITY_CARDIO= '2'
+    ACTIVITY_POWERLIFT = '3'
     ACTIVITY_GENERAL = '4'
 
     FITNESS_ACTIVITIES = [
@@ -284,14 +284,14 @@ by the US Department of Agriculture. It is extremely complete, with around
                               null=True)
     """Gender"""
 
-    goal = models.CharField(max_length=1,
+    goal = models.CharField(max_length=20,
                               choices=GOALS,
                               default=GOAL_LOSE_WEIGHT,
                               blank=False,
                               null=True)
     """Goal"""
 
-    fitness_activity = models.CharField(max_length=1,
+    fitness_activity = models.CharField(max_length=20,
                               choices=FITNESS_ACTIVITIES,
                               default=ACTIVITY_CARDIO,
                               blank=False,
