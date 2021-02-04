@@ -105,7 +105,8 @@ class UserPreferencesForm(forms.ModelForm):
                   'goal',
                   'age',
                   'height',
-                  'goal'
+                  'goal',
+                  'fitness_activity'
                   )
 
     def __init__(self, *args, **kwargs):
@@ -124,7 +125,10 @@ class UserPreferencesForm(forms.ModelForm):
                                    Column('height', css_class='form-group col-6 mb-0'),
                                    css_class='form-row'
                                    ),
-                                'goal'
+                               Row(Column('goal', css_class='form-group col-6 mb-0'),
+                                   Column('fitness_activity', css_class='form-group col-6 mb-0'),
+                                   css_class='form-row'
+                                   )
                                ),
                 AccordionGroup(_("Workout reminders"),
                                'workout_reminder_active',
