@@ -104,6 +104,15 @@ class UserProfile(models.Model):
         (GENDER_FEMALE, _('Female')),
     )
 
+    GOAL_LOSE_WEIGHT = 'LW'
+    GOAL_BODYBUILDING = 'BB'
+    GOALS_CROSSFIT = 'CF'
+    GOALS = [
+        (GOAL_LOSE_WEIGHT, _('Lose Weight')),
+        (GOAL_BODYBUILDING, _('Bodybuilding')),
+        (GOALS_CROSSFIT, _('Cross Fit'))
+    ]
+
     INTENSITY_LOW = '1'
     INTENSITY_MEDIUM = '2'
     INTENSITY_HIGH = '3'
@@ -136,11 +145,6 @@ class UserProfile(models.Model):
     age = models.PositiveIntegerField(_("age"), null=True)
     """
     The user's Age
-    """
-
-    goal = models.CharField(_("goal"), default="", max_length=20)
-    """
-    The user's goal
     """
 
     gym = models.ForeignKey(Gym,
@@ -262,6 +266,13 @@ by the US Department of Agriculture. It is extremely complete, with around
                               blank=False,
                               null=True)
     """Gender"""
+
+    goal = models.CharField(max_length=20,
+                              choices=GOALS,
+                              default=GOAL_LOSE_WEIGHT,
+                              blank=False,
+                              null=True)
+    """Goal"""
 
     sleep_hours = IntegerField(verbose_name=_('Hours of sleep'),
                                help_text=_('The average hours of sleep per day'),
