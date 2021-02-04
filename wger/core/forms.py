@@ -103,7 +103,9 @@ class UserPreferencesForm(forms.ModelForm):
                   'birthdate',
                   'profilePicture',
                   'goal',
-                  'age'
+                  'age',
+                  'height',
+                  'goal'
                   )
 
     def __init__(self, *args, **kwargs):
@@ -118,7 +120,11 @@ class UserPreferencesForm(forms.ModelForm):
                                    Column('last_name', css_class='form-group col-6 mb-0'),
                                    css_class='form-row'
                                     ),
-                                'age'
+                               Row(Column('age', css_class='form-group col-6 mb-0'),
+                                   Column('height', css_class='form-group col-6 mb-0'),
+                                   css_class='form-row'
+                                   ),
+                                'goal'
                                ),
                 AccordionGroup(_("Workout reminders"),
                                'workout_reminder_active',
@@ -140,8 +146,7 @@ class UserPreferencesForm(forms.ModelForm):
                                "show_english_ingredients",
                                "num_days_weight_reminder",
                                "birthdate",
-                               "profilePicture",
-                               "goal"
+                               "profilePicture"
                                )
             ),
             ButtonHolder(Submit('submit', _("Save"), css_class='btn-success btn-block'))
@@ -151,7 +156,8 @@ class UserPreferencesForm(forms.ModelForm):
 class UserProfileForm(forms.ModelForm):
     class Meta:
         model = UserProfile
-        fields = ()
+        fields = (
+        )
 
     def __init__(self, *args, **kwargs):
         super(UserProfileForm, self).__init__(*args, **kwargs)
@@ -175,28 +181,34 @@ class UserProfileForm(forms.ModelForm):
         self.age = "<p><strong>Age:</strong>&emsp;&ensp;" + self.data['age'] + "</p>"
         self.city = "<p><strong>Gym Location:</strong>&emsp;&ensp;" + self.data['location'] + "</p>"
         self.gender = "<p><strong>Gender:</strong>&emsp;&ensp;" + ("Male" if self.data['gender'] else "Female") + "</p>"
-        self.weight = "<p><strong>Weight:</strong>&emsp;&ensp;" + self.data['weight'] + "</p>"
-        self.height = "<p><strong>Height:</strong>&emsp;&ensp;" + self.data['height'] + "</p>"
+        self.weight = "<p><strong>Weight:</strong>&emsp;&ensp;" + self.data['weight'] + " lbs</p>"
+        self.height = "<p><strong>Height:</strong>&emsp;&ensp;" + self.data['height'] + " cm</p>"
+        self.goal = "<p><strong>Primary Goal:</strong>&emsp;&ensp;" + self.data['goal'] + "</p>"
 
         self.anotherHelper = FormHelper()
         self.anotherHelper.form_tag = False
         self.anotherHelper.layout = Layout(
             TabHolder(
-            Tab('Personal Information',
-                Row(
-                    Column(HTML(self.full_name), css_class='form-group col-6 mb-0'),
-                    Column(HTML(self.gender), css_class='form-group col-6 mb-0')
+                Tab('Personal Information',
+                    Row(
+                        Column(HTML(self.full_name), css_class='form-group col-6 mb-0'),
+                        Column(HTML(self.gender), css_class='form-group col-6 mb-0')
+                    ),
+                    Row(
+                        Column(HTML(self.city), css_class='form-group col-6 mb-0'),
+                        Column(HTML(self.weight), css_class='form-group col-6 mb-0')
+                    ),
+                    Row(
+                        Column(HTML(self.age), css_class='form-group col-6 mb-0'),
+                        Column(HTML(self.height), css_class='form-group col-6 mb-0')
+                    ),
                 ),
-                Row(
-                    Column(HTML(self.city), css_class='form-group col-6 mb-0'),
-                    Column(HTML(self.weight), css_class='form-group col-6 mb-0')
-                ),
-                Row(
-                    Column(HTML(self.age), css_class='form-group col-6 mb-0'),
-                    Column(HTML(self.height), css_class='form-group col-6 mb-0')
-                ),
-            ),
-            Tab('Goals')
+                Tab('Goals',
+                    Row(
+                        Column(HTML(self.goal), css_class='form-group col-6 mb-0'),
+                        Column(HTML(self.gender), css_class='form-group col-6 mb-0')
+                    )
+                )
             )
         )
         # self.anotherHelper = FormHelper()

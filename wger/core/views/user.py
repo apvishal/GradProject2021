@@ -358,6 +358,7 @@ def preferences(request):
 @login_required
 def profile(request):
     template_data = {}
+    template_data.update(csrf(request))
     reqUserID = request.user.id
     userProfile = get_object_or_404(UserProfile, pk=reqUserID) # abstract user
     data = {
@@ -369,12 +370,14 @@ def profile(request):
         'weight': str(userProfile.weight),
         'height': str(userProfile.height),
         'location': userProfile.gym.city + ", " + userProfile.gym.state,
-        'picture': "{0}/{1}".format(settings.MEDIA_URL, userProfile.profilePicture)
+        'picture': "{0}/{1}".format(settings.MEDIA_URL, userProfile.profilePicture),
+        'goal': str(userProfile.GOALS[int(userProfile.goal)][1])
     }
 
     form = UserProfileForm(initial=data, instance=request.user.userprofile)
     template_data['form'] = form
-    template_data['user'] = userProfile.user.first_name
+    template_data['user'] = request.user
+    template_data['name'] = userProfile.user.first_name
     template_data['data'] = data
 
     return render(request, 'user/profile.html', template_data)

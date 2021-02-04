@@ -284,7 +284,7 @@ by the US Department of Agriculture. It is extremely complete, with around
                               null=True)
     """Gender"""
 
-    goal = models.CharField(max_length=20,
+    goal = models.CharField(max_length=2,
                               choices=GOALS,
                               default=GOAL_LOSE_WEIGHT,
                               blank=False,
