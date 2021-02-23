@@ -104,13 +104,30 @@ class UserProfile(models.Model):
         (GENDER_FEMALE, _('Female')),
     )
 
-    GOAL_LOSE_WEIGHT = 'LW'
-    GOAL_BODYBUILDING = 'BB'
-    GOALS_CROSSFIT = 'CF'
+    GOAL_LOSE_WEIGHT = '0'
+    GOAL_GAIN_WEIGHT = '1'
+    GOALS_ACTIVE = '2'
+    GOALS_LEARN = '3'
+
     GOALS = [
         (GOAL_LOSE_WEIGHT, _('Lose Weight')),
-        (GOAL_BODYBUILDING, _('Bodybuilding')),
-        (GOALS_CROSSFIT, _('Cross Fit'))
+        (GOAL_GAIN_WEIGHT, _('Gain Weight')),
+        (GOALS_ACTIVE, _('Get Active')),
+        (GOALS_LEARN, _('Start Learning')),
+    ]
+
+    ACTIVITY_CROSSFIT = '0'
+    ACTIVITY_BODYBUILDING = '1'
+    ACTIVITY_CARDIO= '2'
+    ACTIVITY_POWERLIFT = '3'
+    ACTIVITY_GENERAL = '4'
+
+    FITNESS_ACTIVITIES = [
+        (ACTIVITY_CROSSFIT, _('Cross Fit')),
+        (ACTIVITY_BODYBUILDING, _('Bodybuilding')),
+        (ACTIVITY_CARDIO, _('Cardio')),
+        (ACTIVITY_POWERLIFT, _('Power Lifting')),
+        (ACTIVITY_GENERAL, _('General Fitness')),
     ]
 
     INTENSITY_LOW = '1'
@@ -267,12 +284,19 @@ by the US Department of Agriculture. It is extremely complete, with around
                               null=True)
     """Gender"""
 
-    goal = models.CharField(max_length=20,
+    goal = models.CharField(max_length=2,
                               choices=GOALS,
                               default=GOAL_LOSE_WEIGHT,
                               blank=False,
                               null=True)
     """Goal"""
+
+    fitness_activity = models.CharField(max_length=20,
+                              choices=FITNESS_ACTIVITIES,
+                              default=ACTIVITY_CARDIO,
+                              blank=False,
+                              null=True)
+    """Fitness Activity"""
 
     sleep_hours = IntegerField(verbose_name=_('Hours of sleep'),
                                help_text=_('The average hours of sleep per day'),
