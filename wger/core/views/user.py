@@ -373,6 +373,9 @@ def profile(request):
         'picture': "{0}/{1}".format(settings.MEDIA_URL, userProfile.profilePicture),
         'goal': str(userProfile.GOALS[int(userProfile.goal)][1]),
         'activity': str(userProfile.FITNESS_ACTIVITIES[int(userProfile.fitness_activity)][1]),
+        'calories': str(userProfile.calories),
+        'sport_hrs': str(userProfile.sport_hours),
+        'sport_intensity': str(userProfile.INTENSITY[int(userProfile.sport_intensity)][1])
     }
 
     form = UserProfileForm(initial=data, instance=request.user.userprofile)

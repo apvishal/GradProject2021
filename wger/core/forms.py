@@ -189,6 +189,10 @@ class UserProfileForm(forms.ModelForm):
         self.height = "<p><strong>Height:</strong>&emsp;&ensp;" + self.data['height'] + " cm</p>"
         self.goal = "<p><strong>Primary Goal:</strong>&emsp;&ensp;" + self.data['goal'] + "</p>"
         self.activity = "<p><strong>Fitness Activity:</strong>&emsp;&ensp;" + self.data['activity'] + "</p>"
+        self.calories = "<p><strong>Daily Intake:</strong>&emsp;&ensp;" + self.data['calories'] + "</p>"
+        self.sportHours = "<p><strong>Hours of Fitness:</strong>&emsp;&ensp;" + self.data['sport_hrs'] + "calories</p>"
+        self.sportIntensity = "<p><strong>Fitness Intensity</strong>&emsp;&ensp;" + self.data['sport_intensity'] + "</p>"
+
 
         self.anotherHelper = FormHelper()
         self.anotherHelper.form_tag = False
@@ -208,13 +212,14 @@ class UserProfileForm(forms.ModelForm):
                         Column(HTML(self.height), css_class='form-group col-6 mb-0')
                     ),
                 ),
-                Tab('Goals',
+                Tab('More Information',
                     Row(
                         Column(HTML(self.goal), css_class='form-group col-6 mb-0'),
-                        Column(HTML(self.gender), css_class='form-group col-6 mb-0')
+                        Column(HTML(self.calories), css_class='form-group col-6 mb-0')
                     ),
                     Row(
-                        Column(HTML(self.activity), css_class='form-group col-6 mb-0')
+                        Column(HTML(self.sportHours), css_class='form-group col-6 mb-0'),
+                        Column(HTML(self.sportIntensity), css_class='form-group col-6 mb-0')
                     )
                 )
             )
