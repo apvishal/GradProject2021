@@ -1,10 +1,30 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Workout Generator Page</title>
-</head>
-<body>
-<h1>Workout Generator Page!</h1>
-</body>
-</html>
+{% extends "base.html" %}
+{% load i18n static wger_extras crispy_forms_tags %}
+
+{% block title %}{% trans "Workout Generator" %}{% endblock %}
+
+
+{% block content %}
+    {% crispy form form.helper %}
+{% if popup %}
+<div class="modal fade" id="download-pdf-popup">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">{% trans "Download as PDF" %}</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form class="wger-form">
+                    {% crispy popup %}
+                    <div id="pdf-download-info" data-schedule-id="{{ schedule.id }}" data-uid="{{ uid }}" data-token="{{ token }}"></div>
+                </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-light" data-dismiss="modal">{% trans "Close" %}</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+{% endblock %}

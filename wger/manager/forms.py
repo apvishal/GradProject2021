@@ -42,7 +42,9 @@ from crispy_forms.layout import (
     Column,
     Layout,
     Row,
-    Submit
+    Submit,
+    HTML,
+    Div
 )
 
 # wger
@@ -51,6 +53,7 @@ from wger.core.models import (
     WeightUnit
 )
 from wger.exercises.models import Exercise
+from wger.exercises.models import ExerciseCategory
 from wger.manager.models import (
     Day,
     Set,
@@ -238,3 +241,34 @@ class WorkoutSessionHiddenFieldsForm(ModelForm):
                    'time_end': widgets.HiddenInput(),
                    'user': widgets.HiddenInput(),
                    'notes': widgets.Textarea(attrs={'rows': 3})}
+
+
+class WorkoutGeneratorForm(Form):
+    category_choices = []
+    for elem in ExerciseCategory.objects.all(): category_choices.append((elem.name, elem.name))
+    level_choices = [('Beginner', 'Beginner'), ('Intermediate', 'Intermediate'), ('Advanced', 'Advanced')]
+
+    categories = ChoiceField(
+        label=ugettext_lazy(u"Choose Workout Category"),
+        choices= category_choices
+    )
+
+    levels = ChoiceField(
+        label=ugettext_lazy(u"Choose Workout Intensity"),
+        choices= level_choices
+    )
+
+    def __init__(self, *args, **kwargs):
+        super(WorkoutGeneratorForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.layout = Layout(
+            Div(HTML("<p>hello there friend</p>")),
+            Div('categories'),
+            Div('levels'),
+            Submit('submit', _("Generate!")),
+        )
+
+        # self.data = kwargs['initial']
+        # self.exercises = ""
+        # if hasattr(self.data, 'exercises'):
+        #     self.exercises = self.data['exercises']
