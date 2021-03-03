@@ -102,7 +102,7 @@
         }
     },
     {
-        "pk": 6,
+        "pk": 6,"pk": 6,
         "model": "auth.user",
         "fields": {
             "username": "trainer3",
@@ -1262,9 +1262,9 @@
             "workout_reminder": 14,
             "workout_duration": 12,
             "notification_language": 2,
+          "gym": 25,
                 "timer_active": true,
                 "timer_pause": 90,
-                "gym": 2,
             "weight_unit": "lb",
             "ro_access": true,
             "num_days_weight_reminder":0,
