@@ -61,5 +61,15 @@
             "weight": 83,
             "date": "2013-01-30"
         }
+    },
+    {
+        "pk": 25,
+        "model": "weight.weightentry",
+        "fields": {
+            "user": 25,
+            "weight": 180,
+            "date": "2013-01-30"
+        }
     }
+
 ]
