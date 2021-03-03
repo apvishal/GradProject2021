@@ -355,16 +355,17 @@ def preferences(request):
     else:
         return render(request, 'user/preferences.html', template_data)
 
-@login_required
+# @login_required
 def profile(request):
     template_data = {}
     template_data.update(csrf(request))
     reqUserID = request.user.id
+    user = User.objects.get(pk=reqUserID)
     userProfile = get_object_or_404(UserProfile, pk=reqUserID) # abstract user
     data = {
-        'full_name': request.user.first_name + " " + request.user.last_name,
-        'user_name': userProfile.user.username,
-        'user_email': request.user.email,
+        'full_name': user.first_name + " " + user.last_name,
+        'user_name': user.username,
+        'user_email': user.email,
         'age': str(userProfile.age),
         'gender': userProfile.gender,
         'weight': str(userProfile.weight),
@@ -378,7 +379,7 @@ def profile(request):
         'sport_intensity': str(userProfile.INTENSITY[int(userProfile.sport_intensity)][1])
     }
 
-    form = UserProfileForm(initial=data, instance=request.user.userprofile)
+    form = UserProfileForm(initial=data, instance=userProfile)
     template_data['form'] = form
     template_data['user'] = request.user
     template_data['name'] = userProfile.user.first_name
