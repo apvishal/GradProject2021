@@ -190,7 +190,7 @@ class UserProfileForm(forms.ModelForm):
         self.goal = "<p><strong>Primary Goal:</strong>&emsp;&ensp;" + self.data['goal'] + "</p>"
         self.activity = "<p><strong>Fitness Activity:</strong>&emsp;&ensp;" + self.data['activity'] + "</p>"
         self.calories = "<p><strong>Daily Intake:</strong>&emsp;&ensp;" + self.data['calories'] + "</p>"
-        self.sportHours = "<p><strong>Hours of Fitness:</strong>&emsp;&ensp;" + self.data['sport_hrs'] + "calories</p>"
+        self.sportHours = "<p><strong>Hours of Fitness:</strong>&emsp;&ensp;" + self.data['sport_hrs'] + " hours / day</p>"
         self.sportIntensity = "<p><strong>Fitness Intensity</strong>&emsp;&ensp;" + self.data['sport_intensity'] + "</p>"
 
 
