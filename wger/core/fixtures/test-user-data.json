@@ -476,6 +476,28 @@
         }
     },
     {
+        "pk": 25,
+        "model": "auth.user",
+        "fields": {
+            "username": "profileTestUser",
+            "first_name": "Profile",
+            "last_name": "Test",
+            "is_active": true,
+            "is_superuser": false,
+            "is_staff": false,
+            "last_login": "2021-02-15T00:23:21.592Z",
+            "groups": [
+                [
+                    "gym_trainer"
+                ]
+            ],
+            "user_permissions": [],
+            "password": "pbkdf2_sha256$12000$N1LjFaFdFKXD$Bd4rFH4+pXY9R3xOOE6rLfFLZ9Y7zri+UmzAEWgADWE=",
+            "email": "profileTest@example.com",
+            "date_joined": "2021-02-15T00:23:21.592Z"
+        }
+    },
+    {
         "pk": 1,
         "model": "core.userprofile",
         "fields": {
@@ -1217,7 +1239,41 @@
             "num_days_weight_reminder":0
         }
     },
-        {
+    {
+        "pk": 25,
+        "model": "core.userprofile",
+        "fields": {
+            "is_temporary": false,
+            "show_comments": false,
+            "show_english_ingredients": false,
+            "user": 25,
+            "gender": "1",
+            "age": 20,
+            "sport_intensity": "3",
+            "calories": 3500,
+            "height": 180,
+            "sport_hours": 6,
+            "sleep_hours": 7,
+            "work_intensity": "1",
+            "freetime_intensity": "1",
+            "work_hours": 8,
+            "freetime_hours": 8,
+            "workout_reminder_active": true,
+            "workout_reminder": 14,
+            "workout_duration": 12,
+            "notification_language": 2,
+                "timer_active": true,
+                "timer_pause": 90,
+                "gym": 2,
+            "weight_unit": "lb",
+            "ro_access": true,
+            "num_days_weight_reminder":0,
+	    "fitness_activity":1,
+	    "sport_intensity":1,
+	    "profilePicture":""
+        }
+    },
+    {
         "pk": 1,
         "model": "core.usercache",
         "fields": {
@@ -1407,6 +1463,14 @@
         "fields": {
             "last_activity": null,
             "user_id": 24
+        }
+    },
+    {
+        "pk": 25,
+        "model": "core.usercache",
+        "fields": {
+            "last_activity": null,
+            "user_id": 25
         }
     }
 ]
