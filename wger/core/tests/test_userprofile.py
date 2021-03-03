@@ -66,6 +66,24 @@ class UserProfileTestCase(WgerTestCase):
 
     # @patch('wger.core.views.login_required', lambda func: func)
     def test_user_profile_page(self):
+
+        # need a list of tuples to use for expected results
+        expectedResults = [
+            ('full_name', 'Profile Test'),
+            ('user_name', 'profileTestUser'),
+            ('user_email', 'profileTest@example.com'),
+            ('age', '20'),
+            ('gender', 'Male'),
+            ('weight', '180'),
+            ('height', '68'),
+            ('location', 'Sunny City, NV'),
+            ('goal', 'Lose Weight'),
+            # ('activity', 'Cross Fit'),
+            ('calories', '3500'),
+            ('sport_hrs', '6'),
+            ('sport_intensity', 'High')
+        ]
+
         self.user_login(self.username)
         temp = User.objects.get(username=self.username)
 
@@ -84,8 +102,14 @@ class UserProfileTestCase(WgerTestCase):
 
         # begin verifying the output
         self.assertEqual(response.status_code, 200)
-
+        # decode html output
         html = str(response.content.decode('utf-8'))
-        result = "profileTest@example.com" in html
-        self.assertTrue(result)
+
+        # print the html when need to debug
+        # print(html)
+
+        # begin looping and finding all results
+        for pair in expectedResults:
+            type, value = pair
+            self.assertTrue(value in html, "Expected value " + value + " for " + type)
 

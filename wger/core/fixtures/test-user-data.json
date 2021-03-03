@@ -1249,7 +1249,7 @@
             "user": 25,
             "gender": "1",
             "age": 20,
-            "sport_intensity": "3",
+            "sport_intensity": 2,
             "calories": 3500,
             "height": 180,
             "sport_hours": 6,
@@ -1268,9 +1268,10 @@
             "weight_unit": "lb",
             "ro_access": true,
             "num_days_weight_reminder":0,
-	    "fitness_activity":1,
-	    "sport_intensity":1,
-	    "profilePicture":""
+	    "fitness_activity":0,
+	    "profilePicture":"",
+	    "height":68,
+	    "goal": 0
         }
     },
     {
