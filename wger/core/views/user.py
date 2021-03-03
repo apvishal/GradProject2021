@@ -355,7 +355,7 @@ def preferences(request):
     else:
         return render(request, 'user/preferences.html', template_data)
 
-# @login_required
+@login_required
 def profile(request):
     template_data = {}
     template_data.update(csrf(request))
