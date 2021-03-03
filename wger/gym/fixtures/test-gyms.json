@@ -19,5 +19,15 @@
         "fields": {
             "name": "Muscle Gym"
         }
+    },
+    {  
+        "pk": 25,
+        "model": "gym.gym",
+        "fields": {
+            "name": "24 Hr Fitness",
+	    "city": "Sunny City",
+	    "state": "NV"
+        }
     }
+
 ]

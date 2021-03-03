@@ -14,32 +14,102 @@
 # You should have received a copy of the GNU Affero General Public License
 
 # Django
-from django.contrib.auth.models import User
+from django.contrib.auth.models import (
+    User,
+    AnonymousUser
+)
+from wger.core.models import (
+    UserProfile,
+)
+from wger.gym.models import (
+    Gym,
+)
+from requests import patch
+
+from wger.core.views import user
+from django.contrib.auth import authenticate
 from django.urls import (
     reverse,
-    reverse_lazy
+    reverse_lazy, resolve
 )
-
+from django.test import RequestFactory
+from wger.core.forms import UserProfileForm
 # wger
-from wger.core.tests.base_testcase import WgerTestCase
+from wger.core.tests.base_testcase import (
+    WgerTestCase
+)
+from django.test import TestCase
 
+from django.contrib.sessions.middleware import SessionMiddleware
 
 class UserProfileTestCase(WgerTestCase):
 
-    def viewProfile(self, fail=False):
-        """
-        Helper function to test activating users
-        """
-        user = User.objects.get(pk=2)
-        user.is_active = False
-        user.save()
-        self.assertFalse(user.is_active)
+    """ attributes for a new users specifically for testing a user profile """
+    username = 'profileTestUser'
+    email = 'newuser@csu.fullerton.edu'
+    userpw = 'userpw'
 
-        response = self.client.get(reverse('core:user:activate', kwargs={'pk': user.pk}))
-        user = User.objects.get(pk=2)
+    def test_verify_profile_user(self):
+        """ verify profile test user from test-user-data.json exists """
+        user = User.objects.get(username=self.username)
+        self.assertIsNotNone(user)
 
-        self.assertIn(response.status_code, (302, 403))
-        if fail:
-            self.assertFalse(user.is_active)
-        else:
-            self.assertTrue(user.is_active)
+    def test_authenticate_profile_user(self):
+        """ login the user """
+        self.user_login(self.username)
+
+        """ get the user object """
+        user = User.objects.get(username=self.username)
+
+        """ verify authentication """
+        self.assertTrue(user.is_authenticated)
+
+    # @patch('wger.core.views.login_required', lambda func: func)
+    def test_user_profile_page(self):
+
+        # need a list of tuples to use for expected results
+        expectedResults = [
+            ('full_name', 'Profile Test'),
+            ('user_name', 'profileTestUser'),
+            ('user_email', 'profileTest@example.com'),
+            ('age', '20'),
+            ('gender', 'Male'),
+            ('weight', '180'),
+            ('height', '68'),
+            ('location', 'Sunny City, NV'),
+            ('goal', 'Lose Weight'),
+            # ('activity', 'Cross Fit'),
+            ('calories', '3500'),
+            ('sport_hrs', '6'),
+            ('sport_intensity', 'High')
+        ]
+
+        self.user_login(self.username)
+        temp = User.objects.get(username=self.username)
+
+        # need a request object
+        request = RequestFactory().get('/en/user/profile/')
+        request.user = AnonymousUser()
+        request.user.id = temp.pk
+
+        # need middle ware to allow session to execute
+        middleware = SessionMiddleware()
+        middleware.process_request(request)
+        request.session.save()
+
+        # call the correct function for generating the html
+        response = user.profile(request)
+
+        # begin verifying the output
+        self.assertEqual(response.status_code, 200)
+        # decode html output
+        html = str(response.content.decode('utf-8'))
+
+        # print the html when need to debug
+        # print(html)
+
+        # begin looping and finding all results
+        for pair in expectedResults:
+            type, value = pair
+            self.assertTrue(value in html, "Expected value " + value + " for " + type)
+
