@@ -5,26 +5,38 @@
 
 
 {% block content %}
-    {% crispy form form.helper %}
-{% if popup %}
-<div class="modal fade" id="download-pdf-popup">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">{% trans "Download as PDF" %}</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            </div>
-            <div class="modal-body">
-                <form class="wger-form">
-                    {% crispy popup %}
-                    <div id="pdf-download-info" data-schedule-id="{{ schedule.id }}" data-uid="{{ uid }}" data-token="{{ token }}"></div>
-                </form>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-light" data-dismiss="modal">{% trans "Close" %}</button>
+    <Div>
+        {% crispy form form.helper %}
+    </Div>
+    {% if results %}
+        <div style="padding-top:50px;">
+            <div class="card" style="width: 40rem;">
+              <div class="card-body">
+                <h4 class="card-title">Workout Generator Results</h4>
+                  <h6 class="card-subtitle mb-2 text-muted">Category: {{ results.category }} &emsp;&ensp; Level: {{ results.level }} </h6>
+                <p class="card-text">This is where all of the generated workout content will go...</p>
+                  <table class="table">
+                      <thead>
+                        <tr>
+                          <th scope="col">#</th>
+                          <th scope="col">Exercise Name</th>
+                          <th scope="col">Rep Range Min</th>
+                          <th scope="col">Re Range Max</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {% for workout in results.workout_plan %}
+                            <tr>
+                              <th scope="row"> {{ workout.0 }} </th>
+                              <td> {{ workout.1 }} </td>
+                              <td> {{ workout.2 }} </td>
+                              <td> {{ workout.3 }} </td>
+                            </tr>
+                        {% endfor %}
+                      </tbody>
+                </table>
+              </div>
             </div>
         </div>
-    </div>
-</div>
-{% endif %}
+    {% endif %}
 {% endblock %}
