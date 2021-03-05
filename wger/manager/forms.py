@@ -250,25 +250,35 @@ class WorkoutGeneratorForm(Form):
 
     categories = ChoiceField(
         label=ugettext_lazy(u"Choose Workout Category"),
-        choices= category_choices
+        choices= category_choices,
     )
 
     levels = ChoiceField(
-        label=ugettext_lazy(u"Choose Workout Intensity"),
-        choices= level_choices
+        label=ugettext_lazy(u"Choose Workout Level"),
+        choices= level_choices,
     )
 
     def __init__(self, *args, **kwargs):
         super(WorkoutGeneratorForm, self).__init__(*args, **kwargs)
+        # begin creating the initial form
         self.helper = FormHelper()
         self.helper.layout = Layout(
-            Div(HTML("<p>hello there friend</p>")),
             Div('categories'),
             Div('levels'),
             Submit('submit', _("Generate!")),
         )
 
+
+class WorkoutGeneratorResults(Form):
+
+    def __init__(self, *args, **kwargs):
         # self.data = kwargs['initial']
-        # self.exercises = ""
-        # if hasattr(self.data, 'exercises'):
-        #     self.exercises = self.data['exercises']
+
+        self.resultsHelper = FormHelper()
+
+        self.resultsHelper.layout = Layout(
+            HTML('<p>We have Results!!</p>')
+            #      Div(HTML('<h2>Panel Group</h2>'),
+            #         HTML('<p>Panel Group content</p>'),
+            #      )
+        )
