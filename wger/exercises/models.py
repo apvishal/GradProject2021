@@ -278,6 +278,7 @@ class Exercise(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
     @property
     def description_clean(self):
         """
+
         Return the exercise description with all markup removed
         """
         return bleach.clean(self.description, strip=True)

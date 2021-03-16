@@ -5,10 +5,7 @@ from django.shortcuts import (
     get_object_or_404,
     render
 )
-from wger.manager.forms import (
-    WorkoutGeneratorForm,
-    WorkoutGeneratorResults
-)
+from wger.manager.forms import WorkoutGeneratorForm
 
 from wger.exercises.models import Exercise
 
@@ -30,10 +27,10 @@ def generate_plan(exercise_list, low_range, high_range):
 
 
 def generate(cat, lev):
-    levelVal = 1 # beginner
+    levelVal = 1
     if (lev == "Intermediate"):
         levelVal = 2
-    else:
+    elif (lev == "Advanced"):
         levelVal = 3
 
 
@@ -72,8 +69,11 @@ def overview(request):
         # generate workouts
         result_data['workout_plan'] = generate(result_data['category'], result_data['level'])
 
-        for elem in result_data['workout_plan']:
-            print(elem)
+        # for elem in result_data['workout_plan']:
+        #     print(elem)
+
+        # for elem in Exercise.objects.all():
+        #     print(elem.main_image)
 
         template_data['results'] = result_data
     else:
