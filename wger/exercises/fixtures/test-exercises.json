@@ -81,7 +81,7 @@
         "fields": {
             "status": "2",
             "category": 2,
-            "language": 1,
+            "language": 2,
             "muscles": [
                 1,
                 2
@@ -90,7 +90,7 @@
                 3
             ],
             "description": "",
-            "name": "An exercise"
+            "name": "Bicep Curls"
         }
     },
     {
@@ -108,7 +108,7 @@
                 3
             ],
             "description": "",
-            "name": "Very cool exercise"
+            "name": "Tricep Extensions"
         }
     },
     {
@@ -117,12 +117,12 @@
         "fields": {
             "status": "2",
             "category": 3,
-            "language": 1,
+            "language": 2,
             "muscles": [
                 1
             ],
             "description": "",
-            "name": "Boring exercise"
+            "name": "Flat bench"
         }
     },
     {
@@ -131,13 +131,13 @@
         "fields": {
             "status": "1",
             "category": 3,
-            "language": 1,
+            "language": 2,
             "muscles": [
                 1
             ],
             "description": "",
             "license_author": "test",
-            "name": "Pending exercise"
+            "name": "Squats"
         }
     },
     {
@@ -146,13 +146,13 @@
         "fields": {
             "status": "2",
             "category": 3,
-            "language": 1,
+            "language": 2,
             "muscles": [
                 1
             ],
             "muscles_secondary":[],
             "description": "",
-            "name": "Needed for demo user"
+            "name": "Lundges"
         }
     },
     {
@@ -161,13 +161,13 @@
         "fields": {
             "status": "2",
             "category": 3,
-            "language": 1,
+            "language": 2,
             "muscles": [
                 1
             ],
             "muscles_secondary":[],
             "description": "",
-            "name": "Needed for demo user"
+            "name": "Hack Squat"
         }
     },
     {

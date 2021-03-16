@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% load i18n static wger_extras crispy_forms_tags %}
+
+{% block title %}{% trans "Workout Generator" %}{% endblock %}
+
+
+{% block content %}
+    <Div>
+        {% crispy form form.helper %}
+    </Div>
+    {% if results %}
+        <div style="padding-top:50px;">
+            <div class="card" style="width: 40rem;">
+              <div class="card-body">
+                <h4 class="card-title">Workout Generator Results</h4>
+                  <h6 class="card-subtitle mb-2 text-muted">Category: {{ results.category }} &emsp;&ensp; Level: {{ results.level }} </h6>
+                  <table class="table">
+                      <thead>
+                        <tr>
+                          <th scope="col">#</th>
+                          <th scope="col">Exercise Name</th>
+                          <th scope="col">Rep Range Min</th>
+                          <th scope="col">Rep Range Max</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {% for workout in results.workout_plan %}
+                            <tr>
+                              <th scope="row"> {{ workout.0 }} </th>
+                              <td> {{ workout.1 }} </td>
+                              <td> {{ workout.2 }} </td>
+                              <td> {{ workout.3 }} </td>
+                            </tr>
+                        {% endfor %}
+                      </tbody>
+                </table>
+              </div>
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}

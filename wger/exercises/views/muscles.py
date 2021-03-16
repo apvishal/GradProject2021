@@ -63,6 +63,12 @@ class MuscleListView(ListView):
         context = super(MuscleListView, self).get_context_data(**kwargs)
         context['active_languages'] = load_item_languages(LanguageConfig.SHOW_ITEM_EXERCISES)
         context['show_shariff'] = True
+
+        # for exercise in muscle.exercise_set:
+        #     print(exercise.main_image)
+        for muscle in context['muscle_list']:
+            print(muscle.main_image)
+
         return context
 
 

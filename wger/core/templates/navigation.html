@@ -27,6 +27,12 @@
                                 {% endif %}
                                 {% trans "Workouts" %}
                             </a></li>
+                            <li><a class="dropdown-item" href="{% url 'manager:generator:overview' %}" rel="nofollow">
+                                {% if not user.is_authenticated %}
+                                    <span class="{% fa_class 'lock' %}"></span>
+                                {% endif %}
+                                {% trans "Workout Generator" %}
+                            </a></li>
                             <li><a class="dropdown-item" href="{% url 'manager:schedule:overview' %}" rel="nofollow">
                                 {% if not user.is_authenticated %}
                                     <span class="{% fa_class 'lock' %}"></span>

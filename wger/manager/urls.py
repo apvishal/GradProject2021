@@ -32,7 +32,8 @@ from wger.manager.views import (
     schedule_step,
     set,
     workout,
-    workout_session
+    workout_session,
+    workout_generator
 )
 
 
@@ -238,7 +239,11 @@ patterns_step = [
         name='delete'),
 ]
 
-
+patterns_generator = [
+    url(r'^',
+        workout_generator.overview,
+        name='overview')
+]
 urlpatterns = [
     url(r'^', include((patterns_workout, 'workout'), namespace="workout")),
     url(r'^log/', include((patterns_log, 'log'), namespace="log")),
@@ -247,4 +252,5 @@ urlpatterns = [
     url(r'^session/', include((patterns_session, 'session'), namespace="session")),
     url(r'^schedule/', include((patterns_schedule, 'schedule'), namespace="schedule")),
     url(r'^schedule/step/', include((patterns_step, 'step'), namespace="step")),
+    url(r'^workout-generator/', include((patterns_generator, 'generator'), namespace="generator")),
 ]
