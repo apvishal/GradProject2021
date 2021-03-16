@@ -25,14 +25,16 @@ def generate_plan(exercise_list, low_range, high_range):
         exercise_number += 1
     return pairs
 
+def convertLevel(lev):
+    if (lev == "Intermediate"):
+        return 2
+    elif (lev == "Advanced"):
+        return 3
+    # Beginner
+    return 1
 
 def generate(cat, lev):
-    levelVal = 1
-    if (lev == "Intermediate"):
-        levelVal = 2
-    elif (lev == "Advanced"):
-        levelVal = 3
-
+    levelVal = convertLevel(lev)
 
     # first get all workouts of the appropriate category
     exercises = list(Exercise.objects.filter(category__name=cat, language__short_name="en"))
@@ -45,7 +47,6 @@ def generate(cat, lev):
     num_exercises = levelVal * 3
     rep_range_low = levelVal * 5
     rep_range_high = levelVal * 10
-
     exercise_set = exercises[:num_exercises]
     shuffle(exercise_set)
     return generate_plan(exercise_set, rep_range_low, rep_range_high)
