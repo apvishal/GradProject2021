@@ -1,0 +1,12 @@
+[
+    {
+	"pk":1,
+	"model": "core.contentmodel",
+	"fields": {
+	    "content_creator_name": "Test Replier",
+	    "content": "This is the reply",
+	    "content_date": "2021-03-16T17:41:28+00:00"
+	}
+    }
+]
+
