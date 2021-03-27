@@ -721,3 +721,34 @@ class WeightUnit(models.Model):
         This is done basically to not litter the code with magic IDs
         """
         return self.id in (1, 2)
+
+
+class ContentModel(models.Model):
+    """ Content Model to contain information about Original Posts or Replies """
+    """ name of creator """
+    content_creator_name = models.CharField(max_length=20, verbose_name=_('Name'))
+
+    """ reply content """
+    content = models.CharField(max_length=200, verbose_name=_('Content'))
+
+    """ date when reply was posted """
+    content_date = models.DateTimeField(auto_now_add=True)
+
+
+class PostModel(models.Model):
+
+    """ post title """
+    post_title = models.CharField(max_length=50, verbose_name=_('Post Title'), default='some value')
+
+    """ poster name """
+    post_creator_name = models.CharField(max_length=20, verbose_name=_('Name'))
+
+    """ reply content """
+    post_content = models.CharField(max_length=200, verbose_name=_('Content'))
+
+    """ date when reply was posted """
+    content_date = models.DateTimeField(auto_now_add=True)
+
+    """ an original post has a list of replies """
+    replies = models.ManyToManyField(ContentModel, related_name='+')
+
