@@ -752,3 +752,21 @@ class PostModel(models.Model):
     """ an original post has a list of replies """
     replies = models.ManyToManyField(ContentModel, related_name='+')
 
+
+class ForumModel(models.Model):
+    """ Name of Forum """
+    form_name = models.CharField(max_length=20, verbose_name=_('Forum Name'))
+
+    """ All Posts in this Forum """
+    posts = models.ManyToManyField(PostModel)
+
+
+class ForumCategoryModel(models.Model):
+
+    """ Forum Category """
+    forum_category_name = models.CharField(max_length=20, verbose_name=_('Forum Category'))
+
+    """ All Forums in this category """
+    forums = models.ManyToManyField(ForumModel)
+
+    
