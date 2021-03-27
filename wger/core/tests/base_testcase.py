@@ -102,6 +102,8 @@ class BaseTestCase(object):
                 'test-gyms',
                 'test-gymsconfig',
                 'test-user-data',
+                'test-forum-reply',
+                'test-forum-post.json',
                 'test-gym-adminconfig.json',
                 'test-gym-userconfig.json',
                 'test-admin-user-notes',
