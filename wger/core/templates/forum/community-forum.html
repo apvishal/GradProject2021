@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% load i18n static wger_extras crispy_forms_tags %}
+
+{% block title %} Wger Community Fitness Forum {% endblock %}
+
+{% block header %}
+{% endblock %}
+
+{% block content %}
+{% for category in categories%}
+    <div>
+        <p> <strong>{{category.forum_category_name }} </strong> </p>
+        <div class="p-3 mb-2 bg-light text-navy rounded border border-secondary">
+            <ul style="list-style-type:none;">
+                {% for forum in category.forums.all%}
+                    <li>
+                        <a href={{"forum/"|add:forum.slug}} > <strong> {{forum.form_name}} </strong> </a>
+                        <p style="padding-left:2em"> <small> {{ forum.description }} </small> </p>
+                    </li>
+                {% endfor %}
+            </ul>
+
+        </div>
+    </div>
+{% endfor %}
+{% endblock %}
+
+{% block sidebar %}
+{% endblock %}
+
+
+
+{#         #}
+{# Options #}
+{#         #}
+{% block options %}
+<div class="btn-group">
+    <div class="btn-group" role="group">
+        <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <span class="{% fa_class 'cog' %}"></span>
+            {% trans "Options" %}
+        </button>
+        <div class="dropdown-menu">
+            <a href="{% url 'core:user:change-password' %}" class="dropdown-item">
+                <span class="{% fa_class 'key' %}"></span>
+                {% trans "Change password" %}
+            </a>
+            <a href="{% url 'core:user:api-key' %}" class="dropdown-item">
+                <span class="{% fa_class 'globe' %}"></span>
+                {% trans "API key" %}
+            </a>
+            <div role="separator" class="dropdown-divider"></div>
+            <a href="{% url 'core:user:delete' %}" class="wger-modal-dialog dropdown-item">
+                <span class="{% fa_class 'trash' %}"></span>
+                {% trans "Delete account" %}
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}
