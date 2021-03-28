@@ -740,6 +740,8 @@ class PostModel(models.Model):
     """ post title """
     post_title = models.CharField(max_length=50, verbose_name=_('Post Title'), default='some value')
 
+    slug = models.SlugField(default='some-slug')
+
     """ poster name """
     post_creator_name = models.CharField(max_length=20, verbose_name=_('Name'))
 
@@ -756,6 +758,8 @@ class PostModel(models.Model):
 class ForumModel(models.Model):
     """ Name of Forum """
     form_name = models.CharField(max_length=20, verbose_name=_('Forum Name'))
+
+    slug = models.SlugField(default='some-slug') 
 
     """ All Posts in this Forum """
     posts = models.ManyToManyField(PostModel)
