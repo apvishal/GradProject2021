@@ -20,7 +20,9 @@ from django.contrib.auth.models import (
 )
 from wger.core.models import (
     ContentModel,
-    PostModel
+    PostModel,
+    ForumModel,
+    ForumCategoryModel
 )
 
 from requests import patch
@@ -68,3 +70,17 @@ class PublicForumTestCase(WgerTestCase):
         replies = self.post.replies.all()
         self.assertEqual(len(replies), 1)
         self.assertEqual(replies[0].content, "This is the reply")
+
+    def test_forum_model(self):
+        self.forum = ForumModel.objects.get(pk=1)
+        
+        self.assertEqual(self.forum.form_name, "Hobbies")
+
+        existing_posts = self.forum.posts.all()
+
+        self.assertEqual(existing_posts[0].post_content, "This is a test post")
+
+    def test_forum_category_model(self):
+        category = ForumCategoryModel.objects.get(pk=1)
+
+        self.assertEqual(category.forum_category_name, "General Chat")

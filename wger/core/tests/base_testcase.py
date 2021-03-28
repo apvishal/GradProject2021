@@ -103,6 +103,8 @@ class BaseTestCase(object):
                 'test-gymsconfig',
                 'test-user-data',
                 'test-forum-reply',
+                "test-forum-category",
+                "test-forum",
                 'test-forum-post.json',
                 'test-gym-adminconfig.json',
                 'test-gym-userconfig.json',
