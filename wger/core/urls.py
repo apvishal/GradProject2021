@@ -18,11 +18,12 @@
 # Django
 from django.conf.urls import (
     include,
-    url
+    url,
 )
 from django.contrib.auth import views
 from django.views.generic import TemplateView
 
+from django.urls import path
 # wger
 from wger.core.forms import UserLoginForm
 from wger.core.views import (
@@ -172,6 +173,15 @@ patterns_weight_units = [
         name='delete'),
 ]
 
+patterns_forum = [
+    url(r'^$', forum.view_community_forum, name='community-forum'),
+    path('post/<slug:slug>', forum.view_post, name="post"),
+    path('forum/<slug:slug>', forum.view_forum, name="forum"),
+    # url('post/', forum.view_forum, name="post"),
+    # url('post/<slug:someSlug>', forum.view_forum, name="forum"),
+    #url(r'^(?P<slug>^[a-z0-9]+(?:-[a-z0-9]+)*$)', forum.view_forum, name="post"),
+    # url(r'^(?P<slug>^[a-z0-9]+(?:-[a-z0-9]+)*$)', forum.view_forum, name="post"),
+]
 
 #
 # Actual patterns
@@ -204,5 +214,5 @@ urlpatterns = [
     url(r'^license/', include((patterns_license, 'license'), namespace="license")),
     url(r'^repetition-unit/', include((patterns_repetition_units, 'repetition-unit'), namespace="repetition-unit")),
     url(r'^weight-unit/', include((patterns_weight_units, 'weight-unit'), namespace="weight-unit")),
-    url(r'^communityforum/', forum.view_forum, name='forum')
+    url(r'^community-forum/', include((patterns_forum, 'forum'), namespace="forum"))
 ]

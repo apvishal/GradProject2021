@@ -92,31 +92,39 @@ from wger.core.models import (
     UserProfile  # VPATEL
 )
 
-from wger.gym.models import (
-    AdminUserNote,
-    Contract,
-    GymUserConfig
+from wger.core.models import (
+    ContentModel,
+    PostModel
 )
-from wger.manager.models import (
-    Workout,
-    WorkoutLog,
-    WorkoutSession
-)
-from wger.nutrition.models import NutritionPlan
-from wger.utils.generic_views import (
-    WgerFormMixin,
-    WgerMultiplePermissionRequiredMixin
-)
-from wger.weight.models import WeightEntry
-
 
 logger = logging.getLogger(__name__)
 
 
-def view_forum(request):
+def view_community_forum(request):
     if request.method == 'POST':
         pass
     elif request.method == 'GET':
         print("THIS IS A GET REQUEST")
+        existing_content = list(ContentModel.objects.all())
 
-    return render(request, 'forum/forum.html', { 'name': 'vishal'})
+    return render(request, 'forum/forum.html', { 'name': 'vishal', 'content': existing_content })
+
+def view_forum(request, slug):
+    if request.method == 'POST':
+        pass
+    elif request.method == 'GET':
+        # search_string = slug.replace('-', ' ')
+        print("THIS IS A GET REQUEST FORUM for " + slug)
+
+        # existing_posts = PostModel.objects.get(post_title__iexact=search_string)
+        # # existing_posts = list(PostModel.objects.all())
+    return render(request, 'forum/forum.html', { 'name': 'vishal', 'content': ['nothing'] })
+
+def view_post(request, slug):
+    if request.method == 'POST':
+        pass
+    elif request.method == 'GET':
+        # search_string = slug.replace('-', ' ')
+        print("THIS IS A GET REQUEST FORUM POST for" + slug)
+
+    return render(request, 'forum/forum.html', { 'name': 'vishal', 'content': ['nothing'] })
