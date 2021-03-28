@@ -79,3 +79,8 @@ class PublicForumTestCase(WgerTestCase):
         existing_posts = self.forum.posts.all()
 
         self.assertEqual(existing_posts[0].post_content, "This is a test post")
+
+    def test_forum_category_model(self):
+        category = ForumCategoryModel.objects.get(pk=1)
+
+        self.assertEqual(category.forum_category_name, "General Chat")
