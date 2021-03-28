@@ -1,0 +1,10 @@
+[
+    {
+	"pk":1,
+	"model":"core.forumcategorymodel",
+	"fields": {
+	    "forum_category_name":"General Chat",
+	    "forums": [1]
+	}
+    }
+]
