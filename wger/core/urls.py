@@ -31,7 +31,8 @@ from wger.core.views import (
     misc,
     repetition_units,
     user,
-    weight_units
+    weight_units,
+    forum
 )
 
 
@@ -203,4 +204,5 @@ urlpatterns = [
     url(r'^license/', include((patterns_license, 'license'), namespace="license")),
     url(r'^repetition-unit/', include((patterns_repetition_units, 'repetition-unit'), namespace="repetition-unit")),
     url(r'^weight-unit/', include((patterns_weight_units, 'weight-unit'), namespace="weight-unit")),
+    url(r'^communityforum/', forum.view_forum, name='forum')
 ]
