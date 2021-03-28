@@ -764,6 +764,8 @@ class ForumModel(models.Model):
     """ All Posts in this Forum """
     posts = models.ManyToManyField(PostModel)
 
+    description = models.CharField(max_length=100, verbose_name=_('Forum Description'), default='Forum Description')
+
 
 class ForumCategoryModel(models.Model):
 
