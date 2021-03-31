@@ -9,7 +9,6 @@
 
 {% block content %}
 <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#createPostModal"> Create Post </button>
-
 <div class="modal fade" id="createPostModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -40,9 +39,18 @@
   </div>
 </div>
 
-{% for elem in posts%}
-    <p> {{elem.post_title}} </p>
-    <p style="padding-left:2em"> {{elem.post_content}} </p>
+<div style="margin-top:5px">
+    {% for post in posts%}
+    <div class="p-3 mb-2 bg-light text-navy rounded border border-secondary">
+        <a href=""> <strong> {{post.post_title}} </strong> </a>
+        <p style="padding-left:2em"> <small><strong>By:</strong> {{post.post_creator_name}} <strong>Created On:</strong> {{post.content_date}} </small></p>
+    </div>
+</div>
+
+
+
+<!--    <p> {{elem.post_title}} </p>-->
+<!--    <p style="padding-left:2em"> {{elem.post_content}} </p>-->
 
 {% endfor %}
 {% endblock %}
