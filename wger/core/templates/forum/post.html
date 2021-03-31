@@ -8,20 +8,36 @@
 
 
 {% block content %}
+<h4> Original Post:</h4>
+<div class="row p-3 mb-2 bg-light text-navy rounded border border-secondary">
+    <div class="card col-xs-6" style="width: 10rem;height: 10rem;">
+        <div class="card-body">
+            <p> <strong>{{post.post_creator_name}}</strong></p>
+
+        </div>
+    </div>
+    <div class="col-xs-6">
+        <p style="padding-left:2em"> <em><small><strong>Posted On:</strong> {{post.content_date}} </small></em></p>
+        <p class="align-items-center" style="padding-left:2em"> {{post.post_content}}</p>
+    </div>
+</div>
+
+<h4>Replies</h4>
+<div style="padding-left:4em"">
 {% for reply in replies%}
     <div class="row p-3 mb-2 bg-light text-navy rounded border border-secondary">
-        <div class="card col-xs-6" style="width: 10rem;height: 10rem;">
+        <div class="card col-xs-6" style="width: 8rem;height: 8rem;">
             <div class="card-body">
-                <p> <strong>{{reply.content_creator_name}}</strong></p>
+                <p> <small><strong>{{reply.content_creator_name}}</small></p>
             </div>
         </div>
-        <div class="col-xs-6">
-            <p style="padding-left:2em"> <em><small><strong>response on:</strong> {{post.content_date}} </small></em></p>
-            <p class="align-items-center" style="padding-left:2em"> {{reply.content}}</p>
+        <div class="col-xs-6" style="padding-left:2em">
+            <p> <em><small><strong>response on:</strong> {{reply.content_date}} </small></em></p>
+            <p> {{reply.content}}</p>
         </div>
     </div>
 {% endfor %}
-
+</div>
 
 <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#createReplyModal"> Reply to Post </button>
 <div class="modal fade" id="createReplyModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
