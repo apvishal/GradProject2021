@@ -140,5 +140,6 @@ def view_post(request, slug):
     elif request.method == 'GET':
         # search_string = slug.replace('-', ' ')
         print("THIS IS A GET REQUEST FORUM POST for" + slug)
+        post = PostModel.objects.get(post_title__iexact=slug.replace('-', ' '))
 
-    return render(request, 'forum/forum.html', { 'name': 'vishal', 'content': ['nothing'] })
+    return render(request, 'forum/post.html', { 'post_title': slug.replace('-', ' ').title(), 'post':post, 'replies':post.replies.all()})
