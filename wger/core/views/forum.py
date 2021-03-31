@@ -94,7 +94,7 @@ from wger.core.models import (
 )
 
 logger = logging.getLogger(__name__)
-
+from django.utils.text import slugify
 
 def view_community_forum(request):
     # there really is no post request on the home page...
@@ -109,14 +109,12 @@ def view_community_forum(request):
 
 def view_forum(request, slug):
     template_data = {}
-    # get the appropriate forum model (TODO: use slug instead)
-    forum_model = ForumModel.objects.get(form_name__iexact=slug.replace('-', ' '))
-    query_string = slug.replace('-', ' ')
+    forum_model = ForumModel.objects.get(slug__iexact=slug)
 
     if request.method == 'POST':
         post = PostModel.objects.create()
         post.post_title = request.POST['post-title']
-        post.slug = request.POST['post-title'].lower().replace(' ', '-')
+        post.slug = slugify(post.post_title)
         post.post_content = request.POST['post-content']
         post.post_creator_name = request.user.username
         post.save()
@@ -129,15 +127,14 @@ def view_forum(request, slug):
         pass
 
     # always make a new PostForm
-    template_data['forum_title'] = query_string.title()
+    template_data['forum_title'] = forum_model.form_name
     template_data['posts'] = forum_model.posts.all()
 
     return render(request, 'forum/forum.html', template_data)
 
 def view_post(request, slug):
 
-    post_title = slug.replace('-', ' ')
-    post = PostModel.objects.get(post_title__iexact=post_title)
+    post = PostModel.objects.get(slug__iexact=slug)
 
     if request.method == 'POST':
         reply = ContentModel.objects.create()
@@ -150,6 +147,6 @@ def view_post(request, slug):
         return redirect(request.path)
     elif request.method == 'GET':
         pass
-    return render(request, 'forum/post.html', { 'post_title': post_title, 'post':post, 'replies':post.replies.all()})
+    return render(request, 'forum/post.html', { 'post_title': post.post_title, 'post':post, 'replies':post.replies.all()})
 
 
