@@ -37,7 +37,7 @@ from crispy_forms.bootstrap import (
     Accordion,
     AccordionGroup,
     Tab,
-    TabHolder
+    TabHolder,
 )
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import (
@@ -48,13 +48,13 @@ from crispy_forms.layout import (
     Submit,
     Div,
     Field,
-    HTML
+    HTML,
 )
 
 # wger
 from wger.core.models import(
     UserProfile,
-    ForumCategoryModel
+    PostModel
 )
 
 from wger.gym.models import Gym
@@ -378,26 +378,24 @@ class FeedbackAnonymousForm(FeedbackRegisteredForm):
     captcha = ReCaptchaField(label=_('Confirmation text'),
                              help_text=_('As a security measure, please enter the previous words'),)
 
-class ForumCategoryForm(forms.ModelForm):
+
+class ForumPostForm(forms.ModelForm):
 
     class Meta:
-        model = ForumCategoryModel
+        model = PostModel
         fields = (
-            'forum_category_name',
-            'forums'
+            'post_title',
+            'post_content',
+            'post_creator_name'
         )
 
     def __init__(self, *args, **kwargs):
-         pass
-        # super(UserProfileForm, self).__init__(*args, **kwargs)
-        # self.data = kwargs['initial']
-        # self.imageDiv = FormHelper()
+        super(ForumPostForm, self).__init__(*args, **kwargs)
+        self.data = kwargs['initial']
 
-
-        # self.anotherHelper = FormHelper()
-        # # self.anotherHelper.form_class = 'wger-form'
-        # self.anotherHelper.form_tag = False
-        # self.anotherHelper.layout = Layout(
-        #     Div('email', css_class="float-container")
-        # )
+        self.helper = FormHelper()
+        self.helper.layout = Layout(
+            Row('post_title'),
+            Row('post_content')
+        )
 
