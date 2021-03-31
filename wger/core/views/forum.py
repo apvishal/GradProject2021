@@ -135,11 +135,21 @@ def view_forum(request, slug):
     return render(request, 'forum/forum.html', template_data)
 
 def view_post(request, slug):
-    if request.method == 'POST':
-        pass
-    elif request.method == 'GET':
-        # search_string = slug.replace('-', ' ')
-        print("THIS IS A GET REQUEST FORUM POST for" + slug)
-        post = PostModel.objects.get(post_title__iexact=slug.replace('-', ' '))
 
-    return render(request, 'forum/post.html', { 'post_title': slug.replace('-', ' ').title(), 'post':post, 'replies':post.replies.all()})
+    post_title = slug.replace('-', ' ')
+    post = PostModel.objects.get(post_title__iexact=post_title)
+
+    if request.method == 'POST':
+        reply = ContentModel.objects.create()
+        reply.content = request.POST['reply-content']
+        reply.content_creator_name = request.user.username
+        reply.save()
+        post.replies.add(reply)
+        post.save()
+
+        return redirect(request.path)
+    elif request.method == 'GET':
+        pass
+    return render(request, 'forum/post.html', { 'post_title': post_title, 'post':post, 'replies':post.replies.all()})
+
+
