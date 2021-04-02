@@ -153,7 +153,7 @@ class UserProfile(models.Model):
     The user
     """
 
-    profilePicture = models.ImageField(upload_to='images/', default="mamba.jpeg")
+    profilePicture = models.ImageField(upload_to='images/', default="default.png")
 
     """
     The Users's profile image
