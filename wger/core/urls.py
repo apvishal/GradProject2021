@@ -175,7 +175,7 @@ patterns_weight_units = [
 
 patterns_forum = [
     url(r'^$', forum.view_community_forum, name='community-forum'),
-    path('post/<slug:slug>', forum.view_post, name="post"),
+    path('forum/post/<slug:slug>', forum.view_post, name="post"),
     path('forum/<slug:slug>', forum.view_forum, name="forum"),
     # url('post/', forum.view_forum, name="post"),
     # url('post/<slug:someSlug>', forum.view_forum, name="forum"),
