@@ -95,7 +95,8 @@ from wger.core.models import (
 from wger.gym.models import (
     AdminUserNote,
     Contract,
-    GymUserConfig
+    GymUserConfig,
+    Gym
 )
 from wger.manager.models import (
     Workout,
@@ -282,6 +283,8 @@ def registration(request):
                 config.user = user
                 config.save()
 
+            new_gym = Gym.objects.create()
+            user.userprofile.gym = new_gym
             user.userprofile.save()
 
             user = authenticate(username=username, password=password)
