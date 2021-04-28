@@ -85,6 +85,7 @@ from wger.core.models import (
     Language,
     UserProfile  # VPATEL
 )
+from django.contrib.auth.decorators import login_required
 
 from wger.core.models import (
     ContentModel,
@@ -96,6 +97,7 @@ from wger.core.models import (
 logger = logging.getLogger(__name__)
 from django.utils.text import slugify
 
+@login_required
 def view_community_forum(request):
     # there really is no post request on the home page...
     if request.method == 'POST':
