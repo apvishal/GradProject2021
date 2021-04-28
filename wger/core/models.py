@@ -29,6 +29,7 @@ from django.db import models
 from django.db.models import IntegerField
 from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
+from django.utils import timezone
 
 # wger
 from wger.gym.models import Gym
@@ -732,7 +733,7 @@ class ContentModel(models.Model):
     content = models.CharField(max_length=200, verbose_name=_('Content'))
 
     """ date when reply was posted """
-    content_date = models.DateTimeField(auto_now_add=True)
+    content_date = models.DateTimeField(default=timezone.now)
 
 
 class PostModel(models.Model):
@@ -749,7 +750,7 @@ class PostModel(models.Model):
     post_content = models.CharField(max_length=200, verbose_name=_('Content'))
 
     """ date when reply was posted """
-    content_date = models.DateTimeField(auto_now_add=True)
+    content_date = models.DateTimeField(default=timezone.now)
 
     """ an original post has a list of replies """
     replies = models.ManyToManyField(ContentModel, related_name='+')
@@ -759,7 +760,7 @@ class ForumModel(models.Model):
     """ Name of Forum """
     form_name = models.CharField(max_length=20, verbose_name=_('Forum Name'))
 
-    slug = models.SlugField(default='some-slug') 
+    slug = models.SlugField(default='some-slug')
 
     """ All Posts in this Forum """
     posts = models.ManyToManyField(PostModel)
@@ -775,4 +776,4 @@ class ForumCategoryModel(models.Model):
     """ All Forums in this category """
     forums = models.ManyToManyField(ForumModel)
 
-    
+
